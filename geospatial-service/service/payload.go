@@ -6,6 +6,16 @@ import (
 	gjson "github.com/paulmach/go.geojson"
 )
 
+var (
+	geofenceTypeAttedance = "attedance"
+	geofenceTypeLogistic  = "logistic"
+	geofenceTypeTourist   = "tourist"
+	// fence detect
+	fenceDetectExit   = "exit"
+	fenceDetectInside = "inside"
+	fenceDetectEnter  = "enter"
+)
+
 type (
 	// GEOJSON Struct
 	Polygon struct {
@@ -25,13 +35,17 @@ type (
 
 	// location
 	AddLocationRequest struct {
-		LocationName   string  `json:"location_name,omitempty"`
-		IsActive       int     `json:"is_active,omitempty"`
-		CityId         int64   `json:"city_id,omitempty"`
-		ProvinceId     int64   `json:"province_id,omitempty"`
-		Shape          Polygon `json:"shape,omitempty"`
-		LocationTypeId int64   `json:"location_type"`
+		LocationName   string   `json:"location_name,omitempty"`
+		IsActive       int      `json:"is_active,omitempty"`
+		CityId         int64    `json:"city_id,omitempty"`
+		ProvinceId     int64    `json:"province_id,omitempty"`
+		Shape          Polygon  `json:"shape,omitempty"`
+		LocationTypeId int64    `json:"location_type"`
+		IsGeofence     bool     `json:"is_geofence"`
+		GeofenceType   string   `json:"geofence_type"`
+		Detect         []string `json:"detect"`
 	}
+
 	AddLocationResponse struct {
 		Id           int64  `json:"id,omitempty"`
 		LocationName string `json:"location_name,omitempty"`
@@ -192,5 +206,14 @@ type (
 		Area          float64
 		ProvinceName  string
 		CityName      string
+	}
+	// payload publish add geofence
+	PublishAddGeofence struct {
+		Id       string        `json:"id"`
+		State    string        `json:"state"`
+		Name     string        `json:"name"`
+		Detect   []string      `json:"detect"`
+		AreaType string        `json:"area_type"`
+		Shape    gjson.Feature `json:"feature"`
 	}
 )
