@@ -94,6 +94,7 @@ type (
 		CurrentPosition Position     `json:"current_position"`
 	}
 
+	// deprecated...
 	EstimatedTime struct {
 		Walking    float64 `json:"walking"`
 		MotorCycle float64 `json:"motorcycle"`
@@ -101,13 +102,12 @@ type (
 	}
 
 	NearbyLocationItem struct {
-		Id            int64         `json:"id"`
-		LocationName  string        `json:"location_name"`
-		Point         Position      `json:"point,omitempty"`
-		Distance      *float64      `json:"distance,omitempty"`
-		Detail        string        `json:"detail,omitempty"`
-		EstimatedTime EstimatedTime `json:"estimated_time"`
-		LocationType  string        `json:"location_type"`
+		Id           int64    `json:"id"`
+		LocationName string   `json:"location_name"`
+		Point        Position `json:"point,omitempty"`
+		Distance     *float64 `json:"distance,omitempty"`
+		Detail       string   `json:"detail,omitempty"`
+		LocationType string   `json:"location_type"`
 	}
 	GetNearbyLocationResponse struct {
 		Count          int                  `json:"count"`
